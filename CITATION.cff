@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use these research materials, please cite the associated manuscript using the metadata below."
+type: software
+title: "Relational-Memory State-Driven Restart Allocation for Multimodal Optimization"
+authors:
+  - family-names: Zhang
+    given-names: Lida
+  - family-names: Li
+    given-names: Wenhua
+  - family-names: Zheng
+    given-names: Yan
+  - family-names: Zhang
+    given-names: Tao
+  - family-names: Wang
+    given-names: Rui
+  - family-names: Lu
+    given-names: Xin
