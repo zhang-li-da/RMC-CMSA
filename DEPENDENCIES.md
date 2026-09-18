@@ -1,6 +1,6 @@
 # Dependencies for new optimization campaigns
 
-The three published pipeline scripts can validate the included CSV and reproduce its statistical analysis without the optimizer. They do not constitute a complete optimization implementation on their own.
+The original three pipeline scripts can validate the included CSV and reproduce its statistical analysis without the optimizer. They do not constitute a complete optimization implementation on their own.
 
 Running a new LOO campaign additionally requires the following layout from the full author research package:
 
@@ -14,6 +14,8 @@ code/frozen_four_component/code/
     CMMOP/...
 code/baseline_src/RSCMSAESII_v1/...
 ```
+
+The four author-controlled modules are published for inspection under `code/controller_src/`; copy them into the author-package layout above only after obtaining the dependencies. The new full-PID analyzer also requires the matching per-run artifacts and benchmark PID metadata, which are not part of this public snapshot.
 
 The original `external_baselines.py` contains implementations or adaptations of other baselines in addition to the small RSC adapter used by RMC-CMSA. Its redistribution terms must be checked before it is published, or the adapter must be separated and that packaging change validated. `base_algorithm.py` imports CMMOP at module level, so CMMOP is also required to import the optimizer.
 

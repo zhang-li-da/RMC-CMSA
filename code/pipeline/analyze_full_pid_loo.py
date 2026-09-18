@@ -63,6 +63,12 @@ def verify_artifacts(data: pd.DataFrame, input_path: Path) -> dict:
     for key, value in PROTOCOL.items():
         if manifest["protocol"].get(key) != value:
             raise ValueError(f"run manifest protocol differs at {key}")
+    extra_protocol = {"configs": list(runner.LOO_CONFIGS), "controls": runner.CONTROLS,
+                      "engineering_smoke": False,
+                      "seed_rule": "blake2b8(base|pid|pin|dim|runN), little-endian, mod(2^32-1)"}
+    for key, value in extra_protocol.items():
+        if manifest["protocol"].get(key) != value:
+            raise ValueError(f"run manifest protocol differs at {key}")
     if not manifest["protocol"].get("safeguard"):
         raise ValueError("campaign requires the recorded rejection safeguard")
     manifest_hash = runner.sha256(manifest_path)
@@ -172,7 +178,10 @@ def main() -> None:
     args = parser.parse_args()
     if args.bootstrap_draws < 1000:
         parser.error("at least 1000 bootstrap draws required")
+    input_hash = runner.sha256(args.input)
     data = pd.read_csv(args.input)
+    if runner.sha256(args.input) != input_hash:
+        raise ValueError("input changed while being read")
     validation = runner.validate_frame(data, PROTOCOL)
     artifacts = verify_artifacts(data, args.input)
     args.outdir.mkdir(parents=True, exist_ok=True)
@@ -213,9 +222,10 @@ def main() -> None:
     data.groupby(["pid", "config"])[list(runner.COUNTERS)].sum().to_csv(args.outdir / "full_pid_diagnostic_sums.csv")
     write_tables(args.tex_dir, data, comparisons, args.bootstrap_draws)
     manifest = {"created_utc": datetime.now(timezone.utc).isoformat(), "input": str(args.input),
-                "input_sha256": hashlib.sha256(args.input.read_bytes()).hexdigest(), "rows": len(data),
+                "input_sha256": input_hash, "rows": len(data),
                 "protocol": PROTOCOL, "validation": validation, "tests": N_TESTS,
                 "artifacts": artifacts, "analysis_script_sha256": runner.sha256(Path(__file__)),
+                "validator_sha256": runner.sha256(Path(runner.__file__)),
                 "analysis_environment": runner.environment(),
                 "multiplicity": "one Holm family: PID1--PID16 x four deletions x RPR/F1",
                 "minimum_attainable_raw_p": 2 / 2**10,

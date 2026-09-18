@@ -30,7 +30,7 @@ python -B code/pipeline/run_rebuilt_loo_ablation.py --validate-only --pids 1 6 1
 - `results/ablation/rebuilt_loo_selected.csv`: 200 new runs, comprising four problem IDs (1, 6, 10, 14), ten paired seeds, and five conditions, at D=20 and instance=1. The nominal budget is 400,000 evaluations per run.
 - `results/ablation/analysis/`: recorded descriptive statistics, diagnostics, paired comparisons and the retrospective analysis manifest.
 - `results/ablation/*pilot*.csv`: earlier exploratory pilot records, retained for transparency. These overlap with the selected campaign and must not be merged into its statistical sample.
-- `results/revision_allocator_scaling/`: all 120 exploratory geometric trials across D=2, 5, 10, 20, 50, 100, their summaries, protocol and figures. These are allocator geometry diagnostics, not objective-optimization results; the generating optimizer is not included in this initial release.
+- `results/revision_allocator_scaling/`: all 120 exploratory geometric trials across D=2, 5, 10, 20, 50, 100, their summaries, protocol and figures. These are allocator geometry diagnostics, not objective-optimization results; the controller sources are included, while their external runtime dependencies remain separate.
 - `RELEASE_FILES.sha256`: checksums of this repository's initial research files.
 
 ## Evidence and limitations
@@ -48,3 +48,7 @@ Historical benchmark and baseline results from the full local package are not pa
 See [DEPENDENCIES.md](DEPENDENCIES.md) for the files needed to execute new optimization campaigns and [LICENSE_STATUS.md](LICENSE_STATUS.md) for the publication boundary. Some external components have noncommercial conditions; the CMMOP redistribution terms have not been confirmed. No blanket license is applied to those components. An author-selected license for the original scripts is still pending, so public visibility should not be interpreted as an unrestricted reuse grant.
 
 The paper and internal revision report are distributed separately from this initial source-and-results repository. Citation metadata are in [CITATION.cff](CITATION.cff).
+
+## Full-PID D=20 follow-up
+
+`code/pipeline/analyze_full_pid_loo.py` implements the requested PID1--PID16, D=20 analysis (800 runs; 128 paired comparisons). The full optimization campaign is still in progress and its new data are not included here. The analyzer requires the complete author-package CSV, run artifacts, manifest, and hash-matched CMMOP PID metadata; it intentionally refuses partial input. The included four-PID record must not be substituted. The ten-pair exact-test resolution limit is documented in the script: no test can pass the first Holm128 threshold at alpha=0.05.
