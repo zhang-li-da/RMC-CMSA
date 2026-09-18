@@ -2,7 +2,9 @@
 
 Research materials for **Relational-Memory State-Driven Restart Allocation for Multimodal Optimization**.
 
-This initial repository contains the revision's experiment drivers, the complete new exploratory leave-one-component-out (LOO) result table, and reproducible statistical analysis. It is a partial research release: the optimizer and third-party benchmark implementations are not included. Statistical reanalysis works with this checkout; running new optimization experiments requires the dependencies described below.
+This repository contains the revision's experiment drivers, the author-controlled RMC-CMSA controller source, selected result records, and reproducible statistical analysis. It is a partial research release: external adapters, the CMSA/RSC kernel, and third-party benchmark implementations are not included. Statistical reanalysis works with this checkout; running new optimization experiments requires the dependencies described below.
+
+The original controller source is in `code/controller_src/`. It is provided for inspection and extension but is not a standalone executable checkout because its external imports are intentionally documented separately in [ORIGINAL_SOURCE_STATUS.md](ORIGINAL_SOURCE_STATUS.md).
 
 ## Reproduce the statistical analysis
 
@@ -24,6 +26,7 @@ python -B code/pipeline/run_rebuilt_loo_ablation.py --validate-only --pids 1 6 1
 ## What is included
 
 - `code/pipeline/`: the rebuilt LOO driver, its shared experiment driver, and the statistical analysis script. Their contents match the revised local research package.
+- `code/controller_src/`: the four author-controlled controller modules used by the method; see `ORIGINAL_SOURCE_STATUS.md` for the import boundary.
 - `results/ablation/rebuilt_loo_selected.csv`: 200 new runs, comprising four problem IDs (1, 6, 10, 14), ten paired seeds, and five conditions, at D=20 and instance=1. The nominal budget is 400,000 evaluations per run.
 - `results/ablation/analysis/`: recorded descriptive statistics, diagnostics, paired comparisons and the retrospective analysis manifest.
 - `results/ablation/*pilot*.csv`: earlier exploratory pilot records, retained for transparency. These overlap with the selected campaign and must not be merged into its statistical sample.
