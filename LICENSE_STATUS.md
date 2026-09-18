@@ -1,8 +1,8 @@
 # License status
 
-The authors have authorized public hosting of the selected research materials. They have not yet selected a reuse license for the original scripts and data. No general license grant is made by this file; applicable copyright rights remain with their respective holders.
+The authors have authorized public hosting of the selected author-controlled source code and experiment drivers. They have not yet selected a reuse license for this code. Experiment data and run outputs are not included in the current public release. No general license grant is made by this file; applicable copyright rights remain with their respective holders.
 
-The initial repository excludes third-party benchmark and baseline source trees. In the full local research package their licenses differ:
+The current source-only repository excludes third-party benchmark and baseline source trees. In the full local research package their licenses differ:
 
 | Component | Audited status |
 | --- | --- |

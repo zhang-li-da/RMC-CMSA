@@ -1,6 +1,6 @@
 # Dependencies for new optimization campaigns
 
-The original three pipeline scripts can validate the included CSV and reproduce its statistical analysis without the optimizer. They do not constitute a complete optimization implementation on their own.
+This source-only repository includes experiment drivers and analysis scripts, but no experiment CSV files or run artifacts. Statistical reanalysis requires separately supplied local inputs; a new optimization campaign also requires the excluded optimizer and benchmark dependencies. The published files do not constitute a complete optimization implementation on their own.
 
 Running a new LOO campaign additionally requires the following layout from the full author research package:
 
@@ -15,7 +15,7 @@ code/frozen_four_component/code/
 code/baseline_src/RSCMSAESII_v1/...
 ```
 
-The four author-controlled modules are published for inspection under `code/controller_src/`; copy them into the author-package layout above only after obtaining the dependencies. The new full-PID analyzer also requires the matching per-run artifacts and benchmark PID metadata, which are not part of this public snapshot.
+The four author-controlled modules are published for inspection under `code/controller_src/`; copy them into the author-package layout above only after obtaining the dependencies. The full-PID analyzer also requires the matching CSV, per-run artifacts, source manifests, and benchmark PID metadata, which are not part of this public snapshot.
 
 The original `external_baselines.py` contains implementations or adaptations of other baselines in addition to the small RSC adapter used by RMC-CMSA. Its redistribution terms must be checked before it is published, or the adapter must be separated and that packaging change validated. `base_algorithm.py` imports CMMOP at module level, so CMMOP is also required to import the optimizer.
 
@@ -26,7 +26,7 @@ The supplied CEC2026/CMMOP sources credit Ali Ahrari (2026), but no redistributi
 Once these dependencies are lawfully available in the expected layout, a fresh campaign can be launched with:
 
 ```text
-python -B code/pipeline/run_rebuilt_loo_ablation.py --pids 1 6 10 14 --dim 20 --repeats 10 --seed-base 20260808 --workers 4 --out results/ablation/new_campaign.csv
+python -B code/pipeline/run_rebuilt_loo_ablation.py --pids 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 --pin 1 --dim 20 --repeats 10 --seed-base 20260808 --safeguard --workers 4 --out results/ablation/new_campaign.csv
 ```
 
-Use a new output filename. The included historical CSV has no contemporaneous run manifest and is intentionally validate-only. This command was not executed against this partial repository; the repository's verified execution scope is statistical reanalysis.
+Use a new output filename and configure BLAS to use one thread per worker for the manuscript protocol. This command requires the full local dependency layout and has not been executed against the partial public checkout. Earlier statistical reanalysis was validated using research-package inputs that are not included in this source-only release.
