@@ -243,7 +243,7 @@ def main() -> None:
         print(json.dumps({"rows":len(rows), "expected":expected, "complete":len(rows)==expected and len(keys)==expected,
                           "artifacts":len(list(folder.glob("*.json"))), "manifest":str(manifest_path)}, indent=2)); return
     done = set()
-    if out.exists():
+    if out.exists() and out.stat().st_size > 0:
         for r in read_rows_and_verify(): done.add((r["config"], int(r["fid"]), int(r["run"])))
     # Interleave configurations inside each matched (function, repetition)
     # block, so a long-running configuration cannot starve diagnostics for the
@@ -251,7 +251,7 @@ def main() -> None:
     jobs = [{"config": c, "fid": f, "run": r, "seed_base": args.seed_base}
             for f in args.fids for r in range(1, args.runs + 1) for c in args.configs
             if (c, f, r) not in done]
-    out.parent.mkdir(parents=True, exist_ok=True); folder.mkdir(parents=True, exist_ok=True); write_header = not out.exists()
+    out.parent.mkdir(parents=True, exist_ok=True); folder.mkdir(parents=True, exist_ok=True); write_header = (not out.exists()) or out.stat().st_size == 0
     with out.open("a", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=FIELDS)
         if write_header: writer.writeheader()

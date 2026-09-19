@@ -513,14 +513,14 @@ def main() -> None:
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     done = set()
-    if out.exists():
+    if out.exists() and out.stat().st_size > 0:
         with out.open() as handle:
             for row in csv.DictReader(handle):
                 done.add((row["config"], int(row["pid"]), int(row["repeat"])))
     jobs = [j for j in jobs if (j["config"], j["pid"], j["repeat"]) not in done]
     print(f"jobs to run: {len(jobs)} (skipped {len(done)} completed)", flush=True)
 
-    write_header = not out.exists()
+    write_header = (not out.exists()) or out.stat().st_size == 0
     with out.open("a", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=FIELDS)
         if write_header:
