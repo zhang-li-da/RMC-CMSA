@@ -8,6 +8,8 @@ The public release is intentionally source-only. It includes the four controller
 
 - `code/controller_src/`: author-controlled controller modules.
 - `code/pipeline/`: experiment drivers and statistical analysis scripts.
+- `code/supplementary_component_profile/`: the four-deletion compatibility
+  profile runners and frozen protocol used for the supplementary material.
 - `DEPENDENCIES.md`: required external packages and redistribution boundaries.
 - `ORIGINAL_SOURCE_STATUS.md`: source ownership and completeness boundary.
 - `LICENSE_STATUS.md`: current licensing status.
@@ -25,3 +27,10 @@ Please cite the associated manuscript using [`CITATION.cff`](CITATION.cff).
 ## License and dependencies
 
 No blanket license is applied to the complete dependency stack. The author-controlled scripts remain subject to the authors' rights until a reuse license is selected. Third-party components retain their own terms; consult [`DEPENDENCIES.md`](DEPENDENCIES.md) before use.
+
+The supplementary profile compares `RMC-NoMaximin`, `RMC-NoRelations`,
+`RMC-NoTerminalMemory`, and `RMC-NoTrajectoryEvidence` without a Full row.
+It requires the excluded CEC benchmark packages and the local experiment
+adapter described above; the repository provides the drivers and analysis
+logic, while run outputs are distributed with the accompanying revision
+package.

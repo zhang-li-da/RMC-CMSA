@@ -1,0 +1,10 @@
+{
+  "purpose": "Exploratory component-deleted compatibility profile; separate from the unchanged main-text Full-versus-deletion ablation",
+  "configs": ["RMC-NoMaximin", "RMC-NoRelations", "RMC-NoTerminalMemory", "RMC-NoTrajectoryEvidence"],
+  "repeats": 30,
+  "seed_base": 20260808,
+  "cec2013": {"fids": "1..20", "dimension_rule": "official dimension per FID", "metrics": ["pr_1e-03", "sr_1e-03", "pr_1e-04", "sr_1e-04", "pr_1e-05", "sr_1e-05"]},
+  "cec2026": {"pids": "1..16", "pin": 1, "dimensions": [2, 5, 10, 20], "budget": "20000*D", "target_counts": {"PID1-PID8": 20, "PID9-PID16": 10}, "metrics": ["rpr", "f1"]},
+  "ranking": "descending midranks within each problem; CEC2013 score is the mean of six PR/SR means; CEC2026 score is (RPR+F1)/2",
+  "interpretation_limit": "Because Full is omitted, ranks describe remaining-mechanism compatibility and are not causal Full-minus-deletion effects."
+}
